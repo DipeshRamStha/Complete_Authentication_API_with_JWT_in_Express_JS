@@ -1,0 +1,15 @@
+{
+  "name": "complete_authentication_api_with_jwt_in_express_js_(hindi)_02h_23m_19s",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.0.0-beta.1"
+  }
+}
