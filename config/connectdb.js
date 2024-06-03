@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const connectDb = async (DATABASE_URL) => {
+const connectDB = async (DATABASE_URL) => {
   try {
     const DB_OPTIONS = {
       dbName: "geekshop",
@@ -11,3 +11,5 @@ const connectDb = async (DATABASE_URL) => {
     console.log(error);
   }
 };
+
+export default connectDB;
