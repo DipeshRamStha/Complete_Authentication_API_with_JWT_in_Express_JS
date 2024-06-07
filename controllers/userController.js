@@ -22,6 +22,9 @@ class UserController {
               tc: tc,
             });
             await doc.save();
+            res
+              .status(201)
+              .send({ status: "success", message: "Registration Success" });
           } catch (error) {
             console.log(error);
             res.send({
@@ -38,6 +41,18 @@ class UserController {
       } else {
         res.send({ status: "failed", message: "All fields are required" });
       }
+    }
+  };
+
+  static userLogin = async (req, res) => {
+    try {
+      const { email, password } = req.body;
+      if (email && password) {
+      } else {
+        res.send({ status: "failed", message: "All fields are required" });
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 }
