@@ -30,9 +30,11 @@ class UserController {
               { expiresIn: "5d" }
             );
 
-            res
-              .status(201)
-              .send({ status: "success", message: "Registration Success" });
+            res.status(201).send({
+              status: "success",
+              message: "Registration Success",
+              token: token,
+            });
           } catch (error) {
             console.log(error);
             res.send({
@@ -60,7 +62,17 @@ class UserController {
         if (user != null) {
           const isMatch = await bcrypt.compare(password, user.password);
           if (user.email === email && isMatch) {
-            res.send({ status: "success", message: "Login Success" });
+            // Generate JWT Token
+            const token = jwt.sign(
+              { userID: user._id },
+              process.env.JWT_SECRET_KEY,
+              { expiresIn: "5d" }
+            );
+            res.send({
+              status: "success",
+              message: "Login Success",
+              token: "token",
+            });
           } else {
             res.send({
               status: "failed",
