@@ -48,11 +48,29 @@ class UserController {
     try {
       const { email, password } = req.body;
       if (email && password) {
+        const user = await UserModel.findOne({ email: email });
+        if (user != null) {
+          const isMatch = await bcrypt.compare(password, user.password);
+          if (user.email === email && isMatch) {
+            res.send({ status: "success", message: "Login Success" });
+          } else {
+            res.send({
+              status: "failed",
+              message: "Email or Password is not Valid",
+            });
+          }
+        } else {
+          res.send({
+            status: "failed",
+            message: "You are not a Registered User",
+          });
+        }
       } else {
         res.send({ status: "failed", message: "All fields are required" });
       }
     } catch (error) {
       console.log(error);
+      res.send({ status: "failed", message: "Unable to Login" });
     }
   };
 }
