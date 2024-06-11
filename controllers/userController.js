@@ -1,6 +1,7 @@
 import UserModel from "../models/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import transporter from "../config/emailConfig.js";
 
 class UserController {
   static userRegistration = async (req, res) => {
@@ -134,9 +135,18 @@ class UserController {
         });
         const link = `http://127.0.0.1:3000/api/user/reset/${user._id}/${token}`;
         console.log(link);
+
+        // Send Email
+        let info = await transporter.sendMail({
+          from: process.env.EMAIL_FROM,
+          to: user.email,
+          subject: "GeekShop - Password Reset Link",
+          html: `<a href=${link}>Click Here</a> to Reset Your Password`,
+        });
         res.send({
           status: "success",
           message: "Password Reset Email Sent... Please Check Your Email",
+          info: "info",
         });
       }
     } else {
